@@ -1,4 +1,4 @@
-# 第一周开发报告
+# 第一周进度报告
 ## 本周已完成
 
 - 完成新闻网站调查工作的划分, 这部分工作将持续进行。
@@ -16,7 +16,7 @@
 
 ### `NoticeFetcher`
 
-抽象类`NoticeService`的结构, 采用组件化的方式, 即scala中的mixin模式, 代码形式上, 继承了`UrlService`, `IndexService`, `NoticeFetcher`这三个特质(trait, 类似于Java 8中带默认实现的接口), 代码如下
+抽象类`NoticeService`的结构, 采用mixin模式, 代码形式上, 继承了`UrlService`, `IndexService`, `NoticeFetcher`这三个特质(trait, 类似于Java 8中带默认实现的接口), 代码如下
 
 ```scala
 abstract class NoticeService(val source: String) extends UrlService with IndexService with NoticeFetcher {
@@ -27,7 +27,11 @@ abstract class NoticeService(val source: String) extends UrlService with IndexSe
 }
 ```
 
-NoticeService需要用到继承的三个特质的方法(代码注释已标出), 其中(scala中默认可见范围为public), `UrlService`提供`noticeUrlsFromUrl(String): Iterable[NoticeEntry]`方法, 通过给定的索引链接返回新闻标题和链接(封装在`NoticeEntry`)的序列, `IndexService`提供`indexUrls: Iterable[String]`方法, 给出索引链接的序列(一个新闻网站的目录有很多页), `NoticeFetcher`提供`fetch(NoticeEntry): Notice`方法, 通过给定的新闻链接和标题, 提取出新闻(封装成`Notice`), 为了方便起见, 定义了一些protected方法, 在这里可以忽略:
+NoticeService需要用到继承的三个特质的方法(代码注释已标出)
+其中(scala中默认可见范围为public):
+- `UrlService`提供`noticeUrlsFromUrl(String): Iterable[NoticeEntry]`方法,<br />通过给定的索引链接返回新闻标题和链接(封装在`NoticeEntry`)的序列
+- `IndexService`提供`indexUrls: Iterable[String]`方法,<br />给出索引链接的序列(一个新闻网站的目录有很多页)
+- `NoticeFetcher`提供`fetch(NoticeEntry): Notice`方法,<br />通过给定的新闻链接和标题, 提取出新闻(封装成`Notice`), 为了方便起见, 定义了一些protected方法, 在这里可以忽略:
 
 ```scala
 trait UrlService {
