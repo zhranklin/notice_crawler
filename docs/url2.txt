@@ -1,0 +1,16 @@
+http://www.hxsiyuan.cn/news/list.php?page=<index>&cid=15 华西公共卫生学院(华西第四医院)-新闻
+http://www.hxsiyuan.cn/news/list.php?page=<index>&cid=16 华西公共卫生学院(华西第四医院)-通知
+http://pharmacy.scu.edu.cn/newslist.aspx?id=14&page=<index> 华西药学院-学院新闻
+http://pharmacy.scu.edu.cn/newslist.aspx?id=13&page=<index> 华西药学院-公示公告
+http://ggglxy.scu.edu.cn/index.php?c=special&sid=1&page=<index> 公共管理学院-新闻动态
+http://ggglxy.scu.edu.cn/index.php?c=article&a=type&tid=76&page=<index> 公共管理学院-通知公告
+http://bs.scu.edu.cn/index.php?m=fcontent&a=index&catid=42&page=<index> 商学院-新闻
+http://bs.scu.edu.cn/index.php?m=fcontent&a=index&catid=43&page=<index> 商学院-通知
+http://www.scu.edu.cn/mkszy/tz/I1409index_<index>.htm 马克思主义学院-通知公示
+http://www.scu.edu.cn/mkszy/xykx/I1410index_<index>.htm 马克思主义学院-学院快讯
+http://idmr.scu.edu.cn/xyxw/index_<index>.jhtml 灾后重建与管理学院-学院新闻
+
+
+
+
+体育学院 URL不变、灾后重建与管理学院无通知、空天科学与工程学院无法翻页

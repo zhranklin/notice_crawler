@@ -1,0 +1,23 @@
+http://acem.scu.edu.cn/news.php?cid=88&page=<index>  建筑与环境学院 - 通知公告
+http://acem.scu.edu.cn/news.php?cid=87&page=<index>  建筑与环境学院 - 学院新闻
+http://acem.scu.edu.cn/news.php?cid=90&page=<index>  建筑与环境学院 - 招生就业
+http://acem.scu.edu.cn/news.php?cid=89&page=<index>  建筑与环境学院 - 学术动态
+http://cwrh.scu.edu.cn/news.aspx?mid=18&page=<idnex> 水利水电学院 - 学院新闻
+http://cwrh.scu.edu.cn/news.aspx?mid=102&page=<idnex> 水利水电学院 - 学院通知
+http://ce.scu.edu.cn/info/news/?p=<index>  化学工程学院 - 新闻动态
+http://ce.scu.edu.cn/info/notice/?p=<index>  化学工程学院 - 通知公告
+http://ce.scu.edu.cn/info/academic/?p=<index>  化学工程学院 - 学术动态
+http://qfsp.scu.edu.cn/index.aspx?menuid=25&type=article&lanmuid=70&page=<index>&language=cn 轻纺与食品学院 - 学院新闻
+http://qfsp.scu.edu.cn/index.aspx?menuid=25&type=article&lanmuid=71&page=<index>&language=cn 轻纺与食品学院 - 信息通知
+http://qfsp.scu.edu.cn/index.aspx?menuid=25&type=article&lanmuid=72&page=<index>&language=cn 轻纺与食品学院 - 学生工作
+http://qfsp.scu.edu.cn/index.aspx?menuid=25&type=article&lanmuid=73&page=<index>&language=cn 轻纺与食品学院 - 学术看板
+http://qfsp.scu.edu.cn/index.aspx?menuid=25&type=article&lanmuid=74&page=<index>&language=cn 轻纺与食品学院 - 招生就业
+http://qfsp.scu.edu.cn/index.aspx?menuid=25&type=article&lanmuid=84&page=<index>&language=cn 轻纺与食品学院 - 工会之窗
+http://cpse.scu.edu.cn/news/news-list.php?id=2&type_id=1&page=<index>  高分子科学与工程学院 - 综合新闻
+http://cpse.scu.edu.cn/news/news-list.php?id=40&type_id=1&page=<index>  高分子科学与工程学院 - 通知公告
+http://cpse.scu.edu.cn/news/news-list.php?id=188&type_id=1&page=<index>  高分子科学与工程学院 - 教学科研
+http://cpse.scu.edu.cn/news/news-list.php?id=169&type_id=168&page=<index> 高分子科学与工程学院 - 学工动态
+http://jcfy.scu.edu.cn/NewsSubClass.aspx?NewsSubClassId=1  华西基础医学与法医学院 - 学院新闻（无index）
+http://jcfy.scu.edu.cn/NewsSubClass.aspx?NewsSubClassId=2  华西基础医学与法医学院 - 学院通知（无index）
+NULL 华西口腔医学院
+
