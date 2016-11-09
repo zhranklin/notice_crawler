@@ -2,14 +2,14 @@ package com.zhranklin.notice.service
 
 import java.util.Date
 
-import com.zhranklin.notice.{DateUtils, Util}
+import com.zhranklin.notice._
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
 
 import scala.util.Try
 
-trait NoticeFetcher extends Util with DateUtils {
+trait NoticeFetcher extends Util with DateUtils with Logging {
   protected def parse(doc: Document, title: Option[String]): Notice
   protected def exDate(arg: String) = {
     val du.dMatch(dStr) = arg
@@ -29,7 +29,7 @@ trait FunNoticeFetcher extends NoticeFetcher {
   val getContent: Document ⇒ String
   val getDateStr: Document ⇒ String
   def parse(doc: Document, title: Option[String]) = {
-    println(doc.baseUri)
+    log.t(doc.baseUri)
     Notice(doc.baseUri, title.getOrElse(doc.title), getContent(doc), exDate(getDateStr(doc)))
   }
 }

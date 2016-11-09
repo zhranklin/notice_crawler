@@ -1,11 +1,11 @@
 package com.zhranklin.notice.service
 
-import com.zhranklin.notice.JsoupUtil
+import com.zhranklin.notice.{JsoupUtil, Logging}
 import com.zhranklin.notice.Util._
 import org.jsoup.Jsoup
 import org.jsoup.nodes.{Document, Element}
 
-trait UrlService {
+trait UrlService extends Logging {
   def noticeUrlsFromUrl(url: String): Iterable[NoticeEntry]
 }
 
@@ -32,7 +32,7 @@ object UniversalUrlService extends UniversalUrlService
 trait UniversalUrlService extends UrlService with JsoupUtil {
 
   def noticeUrlsFromUrl(indexUrl: String) = {
-    println(s"index: $indexUrl")
+    log.t(s"index: $indexUrl")
     def getPostFix(url: String) = """(?<=\.)\w+$""".r.findFirstIn(url).getOrElse("")
     def properGroup(urls: Seq[Element], pre: Int) = {
       val counts = groupByPreFix(urls, pre).map(_._2.size)
@@ -53,12 +53,12 @@ trait UniversalUrlService extends UrlService with JsoupUtil {
       val shrunkenPreLen = "^.*?(?=\\d+$)".r.findFirstIn(urlsLongEnough.head.href.take(preLen)).map(_.length).getOrElse(preLen)
       val ret = groupByPreFix(urlsLongEnough, shrunkenPreLen).values
         .filter(_.size > 5).flatten.map(e ⇒ NoticeEntry(e.absHref, Some(e.text)))
-      println(s"*****\nret: $ret\n*****")
+      log.t(s"ret: $ret")
       ret
     } catch {
       case e: UnsupportedOperationException ⇒ Nil
       case e: Exception ⇒
-        e.printStackTrace(Console.out)
+        log.e(e.getMessage, e)
         Nil
     }
   }

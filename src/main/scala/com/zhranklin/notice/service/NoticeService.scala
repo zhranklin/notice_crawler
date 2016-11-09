@@ -5,8 +5,8 @@ import java.util.Date
 import scala.util.Try
 
 trait IndexService {
-  protected val template: String
-  protected val firstIndex: Int = 1
+  val template: String
+  protected def firstIndex: Int = 1
   protected def valueStream(i: Int): Stream[Int] = i #:: valueStream(i + 1)
   protected def indexNums: Iterable[Any] = valueStream(firstIndex)
   protected def interpolate(value: Any): String = template.replaceAll("<index>", value.toString)
