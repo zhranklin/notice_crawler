@@ -1,10 +1,12 @@
 package com.zhranklin.notice
 
-import java.net.{URLDecoder, URLEncoder}
+import java.net._
 
 import com.typesafe.scalalogging.LazyLogging
+import org.jsoup.Jsoup
 import org.slf4j.Marker
 
+import scala.collection.Traversable
 import scala.collection.convert.{DecorateAsJava, DecorateAsScala}
 
 trait Util extends DecorateAsJava with DecorateAsScala {
@@ -12,6 +14,10 @@ trait Util extends DecorateAsJava with DecorateAsScala {
   val decode = URLDecoder.decode(_: String, "utf-8")
 
   def getToken = System.getenv("PSW")
+
+  case class TimeoutException(url: String, attempt: Int) extends SocketTimeoutException {
+    override def getMessage = s"fetching from $url time out after $attempt attempts"
+  }
 
   object <> {
     def i[I](implicit i: I) = i
@@ -38,6 +44,14 @@ trait JsoupUtil extends Util {
   implicit class RichElement(element: Element) {
     def href = element.attr("href")
     def absHref = element.attr("abs:href")
+  }
+
+  val MAX_ATTEMPT = 5
+  def getPage(url: String, attempt: Int = 0): Document = try {
+    Jsoup.connect(url).get
+  } catch {
+    case _: SocketTimeoutException if attempt < MAX_ATTEMPT ⇒ getPage(url, attempt + 1)
+    case _: SocketTimeoutException ⇒ throw TimeoutException(url, attempt)
   }
 
   type Date = java.util.Date

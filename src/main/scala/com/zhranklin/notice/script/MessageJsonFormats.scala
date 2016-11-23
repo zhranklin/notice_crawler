@@ -9,7 +9,8 @@ trait MessageJsonFormats {
       classOf[listsources],
       classOf[err],
       classOf[succ],
-      classOf[getnews]
+      classOf[getnews],
+      classOf[fetch_test]
     ))
   }
 }

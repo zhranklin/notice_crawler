@@ -1,6 +1,5 @@
 package com.zhranklin.notice.script
 
-import java.io.File
 
 import com.zhranklin.notice.Logging
 import org.json4s.jackson.JsonMethods.parse
@@ -21,7 +20,9 @@ object Script extends MessageJsonFormats with Logging {
   def main(args: Array[String]): Unit = try {
     work()
   } catch {
-    case e: Exception ⇒ response(err.UNKNOWN_ERROR)
+    case e: Exception ⇒
+      log.e("unknown_error", e)
+      response(err.UNKNOWN_ERROR)
   }
 
   def work() = {

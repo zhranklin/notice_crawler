@@ -1,15 +1,10 @@
 package com.zhranklin.notice.service
 
-import java.util.Date
-
 import com.zhranklin.notice._
-import org.jsoup.Jsoup
-import org.jsoup.nodes.Document
-import org.jsoup.select.Elements
 
 import scala.util.Try
 
-trait NoticeFetcher extends Util with DateUtils with Logging {
+trait NoticeFetcher extends JsoupUtil with DateUtils with Logging {
   protected def parse(doc: Document, title: Option[String]): Notice
   protected def exDate(arg: String) = {
     val du.dMatch(dStr) = arg
@@ -19,7 +14,7 @@ trait NoticeFetcher extends Util with DateUtils with Logging {
     List("href", "src").foreach(n ⇒ doc.select(s"[$n]").asScala.map(l ⇒ l.attr(n, l.attr(s"abs:$n"))))
     doc
   }
-  def fetch(entry: NoticeEntry): Notice = parse(absLink(Jsoup.connect(entry.url).get), entry.title)
+  def fetch(entry: NoticeEntry, attempt: Int = 0): Notice = parse(absLink(getPage(entry.url)), entry.title)
 }
 
 trait FunNoticeFetcher extends NoticeFetcher {
@@ -55,7 +50,7 @@ trait UniversalNoticeFetcher extends NoticeFetcher {
   def properTime(doc: Document) = doc.select("*").asScala.toIterator.flatMap(getTime).maxBy(_._3) //TODO: 这里的重构未检查
 
   def parse(doc: Document, title: Option[String]) = {
-    disLink(doc)
+//    disLink(doc)
     val time = properTime(doc)
     val html = time._2.siblingElements.asScala.maxBy(_.text.length).html
     Notice(doc.baseUri, title.getOrElse(doc.title), html, time._1)
