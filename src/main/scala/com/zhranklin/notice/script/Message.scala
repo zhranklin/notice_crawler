@@ -3,9 +3,12 @@ package com.zhranklin.notice.script
 import java.net.SocketTimeoutException
 import java.time.LocalDateTime
 
+import com.sun.net.httpserver.Authenticator.Success
 import com.zhranklin.notice.Util._
 import com.zhranklin.notice.service.{Notice, NoticeEntry}
 import com.zhranklin.notice.service.NoticeServiceObjects.serviceList
+
+import scala.util._
 
 abstract class Message
 
@@ -22,6 +25,7 @@ object err {
   def JSON_FORMAT_ERR(e: Throwable) = err(1, e.getMessage)
   val SOURCE_NOT_FOUND = err(2, "source not found")
   def SOCKET_TIMEOUT(e: TimeoutException) = err(3, e.url)
+  def HTML_FORMAT_WRONG(e: Throwable) = err(4, s"the input is not an html content: $e")
 }
 
 import err._
@@ -60,4 +64,11 @@ case class fetchnews(source: String, url: String) extends Request {
     .map(_.fetch(NoticeEntry(url, None)))
     .map((n: Notice) ⇒ succ(Map("news" → n)))
     .getOrElse(SOURCE_NOT_FOUND)
+}
+
+case class getpictures(html: String) extends Request {
+  def handle = Try(org.jsoup.Jsoup.parse(html).select("img[src]").asScala.map(_.toString)) match {
+    case Success(imgs) ⇒ succ(Map("imgs" → imgs))
+    case Failure(e) ⇒ HTML_FORMAT_WRONG(e)
+  }
 }

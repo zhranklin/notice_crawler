@@ -32,7 +32,6 @@ object UniversalUrlService extends UniversalUrlService
 trait UniversalUrlService extends UrlService with JsoupUtil {
 
   case class RichUrl(url: String, absUrl: String, title: String)
-  val filterNot = (_: RichUrl).url.endsWith("/")
 
   def noticeUrlsFromUrl(indexUrl: String) = {
     log.t(s"index: $indexUrl")
@@ -79,7 +78,7 @@ trait UniversalUrlService extends UrlService with JsoupUtil {
     val urls = doc.select("*:last-of-type:nth-of-type(n+5)").asScala //筛选, 条件为 是兄弟节点中的最后一个, 且为兄弟节点中的第n+5个(n>0)
       .flatMap(_.parent.select("a[href]").asScala) //扩展成刚才所选节点的父节点内, 所包含的所有<a>, 如此就剔除了所有零散的链接
       .map(e ⇒ RichUrl(e.href, e.absHref, e.text)) //转换成RichUrl, e.text就是链接的文本, 也就是标题
-      .filterNot(filterNot) //去掉所有'/'结尾的链接
+      .filterNot(_.url.endsWith("/")) //去掉所有'/'结尾的链接
       .map(u ⇒ (u.url, u)) //转换成(url(String), RichUrl)的元组
       .toMap.values.toList //toMap(scala中的约定: 二元组作为键值对可转换成Map)之后就可以去掉重复的url, 以及url相同, 标题不同的<a>
     log.t(s"candidates: ${urls.map(_.absUrl).mkString("\n")}")
