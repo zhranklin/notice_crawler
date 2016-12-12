@@ -1,12 +1,11 @@
 package com.zhranklin.notice.script
 
-import java.net.SocketTimeoutException
 import java.time.LocalDateTime
 
-import com.sun.net.httpserver.Authenticator.Success
 import com.zhranklin.notice.Util._
-import com.zhranklin.notice.service.{Notice, NoticeEntry}
 import com.zhranklin.notice.service.NoticeServiceObjects.serviceList
+import com.zhranklin.notice.service._
+import org.jsoup.Jsoup
 
 import scala.util._
 
@@ -28,7 +27,7 @@ object err {
   def HTML_FORMAT_WRONG(e: Throwable) = err(4, s"the input is not an html content: $e")
 }
 
-import err._
+import com.zhranklin.notice.script.err._
 
 case class succ(result: Map[String, Any]) extends Response
 
@@ -43,7 +42,19 @@ case class listsources() extends Request {
 case class getnews(source: String, limit: Option[Int], offset: Option[Int], date: Option[LocalDateTime]) extends Request {
   def handle = (for {
     service ← serviceList.find(_.source == source)
-    (notices, errs) = service.noticesWithErr(limit.getOrElse(10), offset.getOrElse(0))
+    (rawNotices, errs) = service.noticesWithErr(limit.getOrElse(10), offset.getOrElse(0))
+    notices = rawNotices.map { notice ⇒
+      Map(
+        "title" → notice.title,
+        "url" → notice.url,
+        "date" → notice.date,
+        "html" → notice.html,
+        "html1" → notice.widthlessHtml,
+        "html2" → notice.stylelessHtml,
+        "imgs" → Jsoup.parse(notice.html).select("img[src]").asScala.map(_.attr("src")),
+        "text" → Jsoup.parse(notice.html).body.text
+      )
+    }
   } yield succ(Map(
     "news" → notices,
     "warn" → errs.filter(_.isInstanceOf[TimeoutException]).asInstanceOf[List[TimeoutException]].map(err.SOCKET_TIMEOUT))
@@ -70,5 +81,17 @@ case class getpictures(html: String) extends Request {
   def handle = Try(org.jsoup.Jsoup.parse(html).select("img[src]").asScala.map(_.toString)) match {
     case Success(imgs) ⇒ succ(Map("imgs" → imgs))
     case Failure(e) ⇒ HTML_FORMAT_WRONG(e)
+  }
+}
+
+case class create_source(selectors: List[String]) extends Request {
+  def handle = {
+    import com.zhranklin.notice.service.NoticeServiceObjects._
+    val service = new NoticeService("testing") with ServiceBase {
+      val initVal = (contentF(selectors.head), dateF(selectors(1)), selectors(2), selectors(3))
+    }
+    val urls = service.getUrls.take(10)
+    val notices = service.notices.take(10)
+    succ(Map("urls" → urls, "notices" → notices))
   }
 }

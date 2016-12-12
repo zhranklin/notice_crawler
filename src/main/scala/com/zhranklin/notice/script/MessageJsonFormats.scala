@@ -10,7 +10,10 @@ trait MessageJsonFormats {
       classOf[err],
       classOf[succ],
       classOf[getnews],
-      classOf[fetch_test]
+      classOf[fetch_test],
+      classOf[getpictures],
+      classOf[create_source],
+      classOf[fetchnews]
     ))
   }
 }

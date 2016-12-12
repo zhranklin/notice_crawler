@@ -11,7 +11,7 @@ object NoticeServiceObjects {
     lazy val (getContent, getDateStr, urlPattern, template) = initVal
   }
 
-  class LawService(title: String, listId: String) extends NoticeService(s"法学院 - $title") with UrlService with IndexService with FunNoticeFetcher {
+  class LawService(title: String, listId: String) extends NoticeService(s"法学院 - $title") with FunNoticeFetcher {
     val getContent = contentF("div.text")
     val getDateStr = dateF("span:contains(发布时间)")
     val template = "http://law.scu.edu.cn/xjax?arg=8573&arg=<index>&arg=20&arg=list&clazz=PortalArticleAction&method=list"
@@ -72,8 +72,6 @@ object NoticeServiceObjects {
     "灾后重建与管理学院 - 学院新闻" → "http://idmr.scu.edu.cn/xyxw/index_<index>.jhtml",
     "物理科学与技术学院（核科学与工程技术学院） 新闻" → "http://physics.scu.edu.cn/News/index.asp?ClassID=3&page=<index>",
     "物理科学与技术学院（核科学与工程技术学院）通知" → "http://physics.scu.edu.cn/News/index.asp?ClassID=1&page=<index>",
-    "旅游学院 - 通知" → "http://historytourism.scu.edu.cn/tourism/news/gonggaotongzhi/index_<index>.html",
-    "旅游学院 - 新闻" → "http://historytourism.scu.edu.cn/tourism/news/xueyuandongtai/index_<index>.html",
     "化学学院 - 新闻" → "http://chem.scu.edu.cn/test/news/listContent/%E7%BB%BC%E5%90%88%E6%96%B0%E9%97%BB?page=<index>",
     "化学学院 - 通知" → "http://chem.scu.edu.cn/test/News/ListContent/%E5%AD%A6%E9%99%A2%E9%80%9A%E7%9F%A5?page=<index>",
     "生命科学学院 - 新闻" → "http://life.scu.edu.cn/webList.asp?type=news&page=<index>",
@@ -87,6 +85,14 @@ object NoticeServiceObjects {
       val template = tp._2
     }
   } ++ List(
+    new NoticeService("旅游学院 - 通知") with UniversalUrlService with UniversalNoticeFetcher {
+      val template = "http://historytourism.scu.edu.cn/tourism/news/gonggaotongzhi/index_<index>.html"
+      override val first = template.replaceAll("_<index>", "")
+    },
+    new NoticeService("旅游学院 - 新闻") with UniversalUrlService with UniversalNoticeFetcher {
+      val template = "http://historytourism.scu.edu.cn/tourism/news/xueyuandongtai/index_<index>.html"
+      override val first = template.replaceAll("_<index>", "")
+    },
     new NoticeService("教务处 - 通知") with ServiceBase {
       val initVal =(selectorF("input[name=news.content]")(_.first.attr("value")), dateF("table[width=900] td:contains(发布时间)"),
         "newsShow.*", "http://jwc.scu.edu.cn/jwc/moreNotice.action?url=moreNotice.action&type=2&keyWord=&pager.pageNow=<index>")},
