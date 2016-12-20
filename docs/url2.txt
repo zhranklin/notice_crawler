@@ -11,6 +11,6 @@ http://www.scu.edu.cn/mkszy/xykx/I1410index_<index>.htm 马克思主义学院-�
 http://idmr.scu.edu.cn/xyxw/index_<index>.jhtml 灾后重建与管理学院-学院新闻
 
 
-
-
-体育学院 URL不变、灾后重建与管理学院无通知、空天科学与工程学院无法翻页
+http://peftp428.gotoip2.com/news.asp?action=list&class=10&page=<index>  体育学院-新闻
+http://peftp428.gotoip2.com/art.asp?action=list&class=46&page=<index>
+灾后重建与管理学院无通知、空天科学与工程学院无法翻页
