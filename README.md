@@ -2,6 +2,13 @@
 
 软件工程爬虫项目
 
+## 周报汇总(包括设计文档)
+[第一周](https://github.com/zhranklin/notice_crawler/blob/master/docs/week1.md)
+[第二周](https://github.com/zhranklin/notice_crawler/blob/master/docs/week2.md)
+[第三周](https://github.com/zhranklin/notice_crawler/blob/master/docs/week3.md)
+[第四周](https://github.com/zhranklin/notice_crawler/blob/master/docs/week4.md)
+[第五周](https://github.com/zhranklin/notice_crawler/blob/master/docs/week5.md)
+
 ## 编写目的
 
 为了保证项目团队按时保质地完成项目目标，便于项目团队成员更好地了解项目情况，使项目工作开展的各个过程合理有序，有必要以文件化的形式，把对于在项目生命周期内的工作任务范围、各项工作的任务分解、项目团队组织结构、各团队成员的工作责任、团队内外沟通协作方式、开发进度、经费预算、项目内外环境条件、风险对策等内容以书面的方式描述出来，作为项目团队成员以及项目干系人之间的共识与约定，项目生命周期内的所有项目活动的行动基础，项目团队开展和检查项目工作的依据。
